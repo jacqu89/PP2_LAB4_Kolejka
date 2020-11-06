@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1604665253 source:c:\users\j\desktop\aisd\pp2_lab4_z1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<time.h>
+
