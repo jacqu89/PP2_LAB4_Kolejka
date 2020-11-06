@@ -42,6 +42,31 @@ bool enqueue(struct queue_pointers *queue, int data)
     }
     return false;
 }
+bool enqueue_r(struct queue_pointers *queue, int data)
+{
+    struct queue_node *new_node = (struct queue_node*)malloc(sizeof(struct queue_node));
+    if(new_node)
+    {
+        new_node->data = data;
+        new_node->prev = NULL;
+        if(NULL == queue->head)
+        {
+            queue->head = queue->tail = new_node;
+            new_node->next = NULL;
+        }
+        else
+        {
+            queue->head->prev = new_node;
+            new_node->next = queue->head;
+            queue->head = new_node;
+            new_node->prev = NULL;
+
+
+        }
+        return true;
+    }
+    return false;
+}
 
 bool dequeue(struct queue_pointers *queue, int *data)
 {
@@ -105,9 +130,10 @@ void print_queue_r(struct queue_pointers queue)
 void info()
 {
     printf("   Menu kolejki:\n"
-           " [1] - Dodaj do kolejki\n"
-           " [2] - Pierwszy wychodzi z kolejki\n"
-           " [3] - Ostatni wychodzi z kolejki\n"
+           " [1] - Dodaj na koniec kolejki\n"
+           " [2] - Dodaj na poczatek kolejki\n"
+           " [3] - Pierwszy wychodzi z kolejki\n"
+           " [4] - Ostatni wychodzi z kolejki\n"
            " [0] - Wyjdz z programu\n"
            " [9] - Info danych\n"
            ": ");
@@ -167,13 +193,21 @@ int main()
             }
         case 2:
             {
+                printf("Dodaj: ");
+                scanf("%d",&dana);
+                enqueue_r(&queue, dana);
+                system("CLS");
+                break;
+            }
+        case 3:
+            {
                 printf("Usuwam pierwszy element.\n\n");
                 dequeue(&queue, &i);
                 system("PAUSE");
                 system("CLS");
                 break;
             }
-        case 3:
+        case 4:
             {
                 printf("Usuwam pierwszy element.\n\n");
                 dequeue_r(&queue, &i);
